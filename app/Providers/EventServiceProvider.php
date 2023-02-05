@@ -18,9 +18,9 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
 
-        ChirpCreated::class => [
-            SendChirpCreatedNotifications::class,
-        ],
+        // ChirpCreated::class => [
+        //     SendChirpCreatedNotifications::class,
+        // ],
 
         Registered::class => [
             SendEmailVerificationNotification::class,

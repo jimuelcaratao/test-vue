@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class StudentController extends Controller
 {
@@ -14,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Students/Index', []);
     }
 
     /**
@@ -24,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Students/Create', []);
     }
 
     /**
@@ -35,7 +36,20 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $validated = $request->validate([
+            'website' => 'required|string|max:255',
+            'about' => 'required|string',
+            'cover_photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+        ]);
+
+        Student::create($validated);
+
+        return redirect(route('chirps.index'));
     }
 
     /**
